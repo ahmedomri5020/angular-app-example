@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/usr/local/bin:$PATH"  // Adjust the path to where Node.js and Angular CLI are installed
+    }
+
     stages {
         stage('Clone') {
             steps {
@@ -12,7 +16,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install dependencies if you need to (example: using npm for Angular)
+                    // Install dependencies (ensure npm and Angular CLI are available)
                     sh 'npm install'
                 }
             }
@@ -30,7 +34,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run unit tests (example: using Angular's built-in testing framework)
+                    // Run unit tests (using Angular CLI, set headless browser for Jenkins)
                     sh 'ng test --watch=false --browsers=ChromeHeadless'
                 }
             }
